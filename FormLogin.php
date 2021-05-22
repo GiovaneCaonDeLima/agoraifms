@@ -75,8 +75,11 @@
             <div class="card-body">
 
                 <?php
+                // se tiver voltado da verificação de cadastro terá uma msg na url recebida por get
+                // se tiver verificar qual é e exibir mensagem no topo do card 
                 if (isset($_GET["status"])) :
 
+                    // caso status=1 > email ja cadastrado 
                     if ($_GET["status"] == "1") {
                 ?>
 
@@ -86,6 +89,7 @@
 
                     <?php }
 
+                    // caso status=2 > conta criada com sucesso
                     if ($_GET["status"] == "2") {
                     ?>
 
@@ -97,6 +101,7 @@
 
                     <?php
 
+                    // caso status=3 > senhas diferentes
                     if ($_GET["status"] == "3") {
                     ?>
 

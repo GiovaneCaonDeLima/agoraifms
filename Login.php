@@ -21,6 +21,7 @@
 
   if(count($vetorRegistros)>0) { // se tem algo, usuario ok
     $_SESSION["email"]=$email;
+    $_SESSION["perfil"]=$perfil;
     header("location: TrilhasDeAprendizagem.php"); //Redirecionamento login sucesso
   } else {
   	$_SESSION["erroLogin"]="Login ou senha inválidos."; //Redirecionamento login falhou, Retorna com erroLogin na Sessão

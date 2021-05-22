@@ -1,4 +1,5 @@
 <?php require_once("Cabeçalho.php") ?>
+<?php require_once("Protege.php") ?>
 
 <br>
 
