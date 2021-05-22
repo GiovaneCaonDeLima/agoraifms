@@ -75,27 +75,37 @@
             <div class="card-body">
 
                 <?php
-                if (isset($_GET["msg"])):
+                if (isset($_GET["status"])) :
 
-                if ($_GET["msg"] == "Conta criada com sucesso") {
+                    if ($_GET["status"] == "1") {
                 ?>
 
-                    <div class="bg-success text-light border-rounded rounded-pill text-center" style="width: 13rem;">
-                        <small class="fw-bold"><?= $_GET["msg"]; ?></small>
-                    </div>
+                        <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                            <small class="fw-bold">Email já cadastrado</small>
+                        </div>
 
-                <?php } ?>
+                    <?php }
 
-                <?php
-                
-                if ($_GET["msg"] == "Falha ao criar a conta") {
-                ?>
+                    if ($_GET["status"] == "2") {
+                    ?>
 
-                    <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
-                        <small class="fw-bold"><?= $_GET["msg"]; ?></small>
-                    </div>
+                        <div class="bg-success text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                            <small class="fw-bold">Conta criada com sucesso</small>
+                        </div>
 
-                <?php } endif ?>
+                    <?php } ?>
+
+                    <?php
+
+                    if ($_GET["status"] == "3") {
+                    ?>
+
+                        <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                            <small class="fw-bold">Senhas inválidas</small>
+                        </div>
+
+                <?php }
+                endif ?>
                 <!-- Fim verificação se deu certo cadastro -->
 
                 <!-- Título do card  -->
