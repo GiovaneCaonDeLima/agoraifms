@@ -10,13 +10,12 @@
         <div class="card shadow-lg" style="width: 35rem;">
             <div class="card-body">
 
-            <?php
+                <?php
                 // Se retornou com erroLogin na sessão é porque o login falhou 
                 if (isset($_SESSION["erroLogin"])) :
                 ?>
 
-                    <div class="bg-danger text-light border-rounded rounded-pill text-center"
-                    style="width: 13rem;">
+                    <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
                         <small class="fw-bold"><?= $_SESSION["erroLogin"]; ?></small>
                     </div>
 
@@ -27,7 +26,7 @@
                 endif
                 ?>
 
-                <h5 class="card-title text-center">Fazer Login</h5>                
+                <h5 class="card-title text-center">Fazer Login</h5>
 
                 <!-- Formulário Login -->
                 <form action="Login.php" method="POST" class="row">
@@ -74,6 +73,29 @@
         <!-- Cartão -->
         <div class="card shadow-lg" style="width: 35rem;">
             <div class="card-body">
+
+                <?php
+                
+                if ($_GET["msg"] == "Conta criada com sucesso") :
+                ?>
+
+                    <div class="bg-sucess text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                        <small class="fw-bold"><?= $_GET["msg"]; ?></small>
+                    </div>
+
+                <?php endif ?>
+
+                <?php
+                
+                if ($_GET["msg"] == "Falha ao criar a conta") :
+                ?>
+
+                    <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                        <small class="fw-bold"><?= $_GET["msg"]; ?></small>
+                    </div>
+
+                <?php endif ?>
+
                 <h5 class="card-title text-center">Crie uma conta</h5>
 
                 <!-- Formulário Cadastre-se  -->
