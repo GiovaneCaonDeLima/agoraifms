@@ -75,27 +75,30 @@
             <div class="card-body">
 
                 <?php
-                
-                if ($_GET["msg"] == "Conta criada com sucesso") :
+                if (isset($_GET["msg"])):
+
+                if ($_GET["msg"] == "Conta criada com sucesso") {
                 ?>
 
-                    <div class="bg-sucess text-light border-rounded rounded-pill text-center" style="width: 13rem;">
+                    <div class="bg-success text-light border-rounded rounded-pill text-center" style="width: 13rem;">
                         <small class="fw-bold"><?= $_GET["msg"]; ?></small>
                     </div>
 
-                <?php endif ?>
+                <?php } ?>
 
                 <?php
                 
-                if ($_GET["msg"] == "Falha ao criar a conta") :
+                if ($_GET["msg"] == "Falha ao criar a conta") {
                 ?>
 
                     <div class="bg-danger text-light border-rounded rounded-pill text-center" style="width: 13rem;">
                         <small class="fw-bold"><?= $_GET["msg"]; ?></small>
                     </div>
 
-                <?php endif ?>
+                <?php } endif ?>
+                <!-- Fim verificação se deu certo cadastro -->
 
+                <!-- Título do card  -->
                 <h5 class="card-title text-center">Crie uma conta</h5>
 
                 <!-- Formulário Cadastre-se  -->
