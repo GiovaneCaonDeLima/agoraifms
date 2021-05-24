@@ -1,4 +1,11 @@
 <?php require_once('Cabeçalho.php'); ?>
+<?php
+// ATUALIZAR A LISTA DE TRILHAS CRIADAS E SALVAR NO VETOR, PARA SEREM GERADAS NOVAMENTE DEPOIS
+require_once('Conexao.php');
+$comando_sql = "select * from trilhas order by id";         //instrucao sql para todos os alunos
+$dadosSql = $conexao->query($comando_sql);               //executa instrucao sql e salva o resultado do sql
+$vetorTrilhas = $dadosSql->fetch_all(MYSQLI_ASSOC); // pega todos os registros e coloca em um vetor de registros
+?>
 
 <div class="d-grid gap-3">
   <!-- NAV  -->
@@ -10,6 +17,9 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">HISTÓRICO</a></li>
             <li><a class="dropdown-item" href="#">MINHA CONTA</a></li>
+            <?php if(isset($_SESSION["email"]) && $_SESSION["perfil"] == "professor") :
+              echo '<li><a class="dropdown-item" href="FormTrilha.php">EDITAR TRILHAS</a></li>';
+            endif ?>
           </ul>
         </li>
 
@@ -31,98 +41,26 @@
     </div>
   </div>
 
-
   <br>
   <!-- Cards  -->
 
   <div class="row row-cols-auto">
-    <div class="col">
+
+    <?php foreach ($vetorTrilhas as $Trilha) : ?>
+      <div class="col">
 
       <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
+        <img src="<?= $Trilha["foto"]; ?>" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
+          <h5 class="card-title"><?= $Trilha["titulo"]; ?>
             <span class="badge rounded-pill border bg-light text-primary">95%</span>
           </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Área de Acesso</a>
+          <p class="card-text"><?= $Trilha["descricao"]; ?></p>
+          <a href="#" class="btn btn-primary">Entrar</a>
         </div>
       </div>
 
-    </div>
-    <div class="col">
-
-      <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
-            <span class="badge rounded-pill border bg-light text-primary">95%</span>
-          </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col">
-
-      <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
-            <span class="badge rounded-pill border bg-light text-primary">95%</span>
-          </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col">
-
-      <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
-            <span class="badge rounded-pill border bg-light text-primary">95%</span>
-          </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col">
-
-      <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
-            <span class="badge rounded-pill border bg-light text-primary">95%</span>
-          </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col">
-
-      <div class="card shadow" style="width: 18rem;">
-        <img src="fotos/FilosofiaAntiga.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Filosofia Antiga
-            <span class="badge rounded-pill border bg-light text-primary">95%</span>
-          </h5>
-          <p class="card-text">Descrição da Trilha</p>
-          <a href="FormTrilha.php" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-
-    </div>
   </div>
-    <?php require_once("Rodape.php") ?>
+<?php endforeach ?>
+</div>
+<?php require_once("Rodape.php") ?>

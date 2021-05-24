@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Abr-2021 às 20:29
+-- Tempo de geração: 24-Maio-2021 às 23:16
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.2.34
 
@@ -28,23 +28,51 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `aulas` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `resumo` varchar(250) NOT NULL
+  `id` int(4) NOT NULL,
+  `id_trilha` int(4) NOT NULL,
+  `posicao` int(10) NOT NULL,
+  `titulo` int(100) NOT NULL,
+  `pontos` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `topicos`
+-- Estrutura da tabela `secoes`
 --
 
-CREATE TABLE `topicos` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `conteudo` varchar(5000) NOT NULL,
-  `anexo1` varchar(500) NOT NULL,
-  `anexo2` varchar(500) NOT NULL
+CREATE TABLE `secoes` (
+  `id` int(4) NOT NULL,
+  `id_aula` int(4) NOT NULL,
+  `posicao` int(11) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  `conteudo` varchar(2000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `status_usuario_aula`
+--
+
+CREATE TABLE `status_usuario_aula` (
+  `id` int(4) NOT NULL,
+  `id_usuario` int(4) NOT NULL,
+  `id_aula` int(4) NOT NULL,
+  `concluida` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `status_usuario_trilha`
+--
+
+CREATE TABLE `status_usuario_trilha` (
+  `id` int(4) NOT NULL,
+  `id_usuario` int(4) NOT NULL,
+  `id_trilha` int(4) NOT NULL,
+  `progresso` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -58,9 +86,19 @@ CREATE TABLE `trilhas` (
   `titulo` varchar(100) NOT NULL,
   `foto` varchar(500) NOT NULL,
   `descricao` varchar(500) NOT NULL,
-  `pontosPorAula` int(11) NOT NULL,
   `ativa` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `trilhas`
+--
+
+INSERT INTO `trilhas` (`id`, `titulo`, `foto`, `descricao`, `ativa`) VALUES
+(26, 'Filosofia Antiga', 'fotos/240520211647FilosofiaAntiga.jpg', 'Comece agora mesmo!', 0),
+(27, 'Maquiavel', 'fotos/240520211649Maquiavel.png', 'Conheça a história desse grande filósofo', 0),
+(28, 'O Poder em maquiavél', 'fotos/240520211649Maquiavel.png', 'Vamos falar sobre poder?', 0),
+(29, 'A Liberdade em Maquivél', 'fotos/240520211650Maquiavel.png', 'Conceitos importantes sobre a liberdade', 0),
+(30, 'Kant', 'fotos/240520211650Kant.jpg', 'Introdução à Kant', 0);
 
 -- --------------------------------------------------------
 
@@ -82,18 +120,42 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `perfil`, `pontos`) VALUES
-(7, 'Giovane Caon de Lima', 'giovanecdelima@gmail.com', '', 'professor', 0),
-(8, 'Giovane Caon de Lima', 'giovane@gmail.com', '', 'aluno', 0);
+(28, 'Giovane Caon de Lima', 'giovanecdelima@gmail.com', '123', 'aluno', 0),
+(29, 'Giovane Caon de Lima', 'giovane@gmail.com', '123', 'professor', 0);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `topicos`
+-- Índices para tabela `aulas`
 --
-ALTER TABLE `topicos`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `aulas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_trilha` (`id_trilha`);
+
+--
+-- Índices para tabela `secoes`
+--
+ALTER TABLE `secoes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_aula` (`id_aula`);
+
+--
+-- Índices para tabela `status_usuario_aula`
+--
+ALTER TABLE `status_usuario_aula`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_aula` (`id_aula`);
+
+--
+-- Índices para tabela `status_usuario_trilha`
+--
+ALTER TABLE `status_usuario_trilha`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_trilha` (`id_trilha`);
 
 --
 -- Índices para tabela `trilhas`
@@ -112,22 +174,70 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de tabela `topicos`
+-- AUTO_INCREMENT de tabela `aulas`
 --
-ALTER TABLE `topicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `aulas`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `secoes`
+--
+ALTER TABLE `secoes`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `status_usuario_aula`
+--
+ALTER TABLE `status_usuario_aula`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `status_usuario_trilha`
+--
+ALTER TABLE `status_usuario_trilha`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `trilhas`
 --
 ALTER TABLE `trilhas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `aulas`
+--
+ALTER TABLE `aulas`
+  ADD CONSTRAINT `aulas_ibfk_1` FOREIGN KEY (`id_trilha`) REFERENCES `trilhas` (`id`);
+
+--
+-- Limitadores para a tabela `secoes`
+--
+ALTER TABLE `secoes`
+  ADD CONSTRAINT `secoes_ibfk_1` FOREIGN KEY (`id_aula`) REFERENCES `aulas` (`id`);
+
+--
+-- Limitadores para a tabela `status_usuario_aula`
+--
+ALTER TABLE `status_usuario_aula`
+  ADD CONSTRAINT `status_usuario_aula_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `status_usuario_aula_ibfk_2` FOREIGN KEY (`id_aula`) REFERENCES `aulas` (`id`);
+
+--
+-- Limitadores para a tabela `status_usuario_trilha`
+--
+ALTER TABLE `status_usuario_trilha`
+  ADD CONSTRAINT `status_usuario_trilha_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `status_usuario_trilha_ibfk_2` FOREIGN KEY (`id_trilha`) REFERENCES `trilhas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
