@@ -80,13 +80,16 @@
         </div>
 
         <div class="d-flex gap-3">
-        <?php if (isset($_SESSION["email"])) : 
-          echo '<p class="text-light">Usuário: '.$_SESSION["email"].'</p>
-          <a role="button" class="btn btn-outline-light" href="Logout.php"><strong>Sair</strong></a>';
+          <?php if (isset($_SESSION["email"])) :
+            echo '<p class="text-light">Usuário: ' . $_SESSION["email"] . '</p>
+            <a role="button" class="btn btn-outline-light" href="Conta.php"><strong>Conta</strong></a>
+            <a role="button" class="btn btn-outline-light" href="Logout.php"><strong>Sair</strong></a>';
           else :
-            echo '<a role="button" class="btn btn-outline-light" href="FormLogin.php"><strong>Fazer Login</strong></a>';
-          endif ?>    
-        </div>       
+            echo '
+            <a role="button" class="btn btn-outline-light" href="FormLogin.php"><strong>Fazer Login</strong></a>';
+          endif
+          ?>
+        </div>
 
       </div>
     </nav>
