@@ -56,7 +56,7 @@ $vetorTrilhas = $dadosSql->fetch_all(MYSQLI_ASSOC); // pega todos os registros e
             <span class="badge rounded-pill border bg-light text-primary">95%</span>
           </h5>
           <p class="card-text"><?= $Trilha["descricao"]; ?></p>
-          <a href="#" class="btn btn-primary">Entrar</a>
+          <a href="Trilha.php" class="btn btn-primary">Entrar</a>
         </div>
       </div>
 
