@@ -78,6 +78,11 @@ $vetorLista = $dadosSql->fetch_all(MYSQLI_ASSOC); // pega todos os registros e c
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                         <small>(Esta trilha não ficará visível no site ainda)</small>
+
+                        <div class="col-12 d-inline">
+                            <button type="submit" class="btn btn-success">Publicar</button>
+                            <button type="submit" class="btn btn-danger">Ocultar</button>
+                        </div>
                     </form>
                 </div>
             </div>

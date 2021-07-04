@@ -89,7 +89,7 @@ $vetorLista = $dadosSql->fetch_all(MYSQLI_ASSOC); // pega todos os registros e c
 
                                         <div class="row text-center">
                                             <label for="">
-                                                <h5>Giovane Caon de Lima</h5>
+                                                <h5><? $_SESSION['nome'] ?></h5>
                                             </label>
                                         </div>
 

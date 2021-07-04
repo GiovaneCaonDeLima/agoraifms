@@ -1,5 +1,6 @@
 <?php 
 	require_once('Cabeçalho.php');
-	unset($_SESSION["email"]);
+	session_destroy();
+	// unset($_SESSION["email"]);
 	header("location: FormLogin.php");
 ?>

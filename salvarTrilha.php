@@ -12,7 +12,7 @@ $dataEHora = date('dmYHi'); // pegar data e hora do servidor
 $nome_arquivo = "fotos/" . $dataEHora . $_FILES["foto"]["name"]; // definir pasta e nome do arquivo no servidor
 $nome_arquivo_tmp = $_FILES["foto"]["tmp_name"]; // pegar nome do arquivo temporario no servidor
 $msgErroArquivo = ""; // definir msg de erro vazia
-if(move_uploaded_file($nome_arquivo_tmp, $nome_arquivo)==false){ // se ocorrer erro...
+if (move_uploaded_file($nome_arquivo_tmp, $nome_arquivo) == false) { // se ocorrer erro...
     $msgErroArquivo = "Arquivo de foto não pode ser enviado."; // define msg de erro
 }
 //fim upload do arquivo
@@ -21,6 +21,20 @@ if ($id == 0) { // se o id for 0 eh um novo registro (insert)
     $sql = 'insert into trilhas (id, titulo, foto, descricao, ativa) values (NULL, ?, ?, ?, false);';
     $sqlprep = $conexao->prepare($sql);
     $sqlprep->bind_param("sss", $titulo, $nome_arquivo, $descricao);
+    $sqlprep->execute();
+
+    //Pegando id da trilha que foi criada
+    $sql = "select max(id) from trilhas;"; // seleciona o último registro criado
+    $sqlprep = $conexao->prepare($sql);
+    $sqlprep->execute();
+    $resultadoSql = $sqlprep->get_result(); // pega o resultado do sql
+    $vetorTrilhaNova = $resultadoSql->fetch_assoc();
+
+    //Criando a primeira aula da trilha automaticamente
+    $sql = 'insert into aulas (id, id_trilha, posicao, titulo, pontos, ativo, id_origem) 
+    values (NULL, ?, 0, "Aula 01", 0, true, 0);';
+    $sqlprep = $conexao->prepare($sql);
+    $sqlprep->bind_param("i", $vetorTrilhaNova['max(id)']);
     $sqlprep->execute();
 } else { // ser o id nao for 0 eh um atualizacao (update)
     $sql = "update trilhas set titulo=?, foto=?, descricao=? where id=?";
